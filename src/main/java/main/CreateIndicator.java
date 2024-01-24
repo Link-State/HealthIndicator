@@ -121,7 +121,7 @@ public class CreateIndicator implements Listener {
 		String name = default_color + target.getName();
 		
 		double maxHealth = target.getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue();
-		double health = target.getHealth() - damage;
+		double health = target.getHealth() - (damage < 0 ? 0 : damage);
 		health = health <= 0.0 ? 0.0 : health;
 		
 		String damage_str = String.format("%s(" + ChatColor.AQUA + "-%,.1f%s)", default_color, damage, default_color);
@@ -133,7 +133,7 @@ public class CreateIndicator implements Listener {
 		
 		// RED -> DARK_RED -> GRAY
 		double rate = health / maxHealth;
-		if (0.2 < rate && rate <= 1) {
+		if (0.2 < rate) {
 			cur_str = String.format(ChatColor.RED + "" + ChatColor.BOLD + "%,.1f", health);
 		}
 		else if (0.0 < rate && rate <= 0.2) {
